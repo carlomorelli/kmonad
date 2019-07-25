@@ -12,7 +12,7 @@ public class ListMonad<T> implements Monad<T> {
     private ListMonad() {
     }
 
-    public ListMonad(T t) {
+    private ListMonad(T t) {
         list.add(t);
     }
 
@@ -20,6 +20,7 @@ public class ListMonad<T> implements Monad<T> {
         list.addAll(ts);
     }
 
+    @SafeVarargs
     public static <T> ListMonad<T> of(T... args) {
         return new ListMonad<>(Arrays.asList(args));
 
@@ -37,7 +38,7 @@ public class ListMonad<T> implements Monad<T> {
         return list;
     }
 
-    public void concatenate(ListMonad<T> t) {
+    private void concatenate(ListMonad<T> t) {
         list.addAll(t.unwrap());
     }
 

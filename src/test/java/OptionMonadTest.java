@@ -24,9 +24,9 @@ public class OptionMonadTest {
     @Test
     public void testIdentityRule() {
 
-        OptionMonad<String> x = OptionMonad.of("la palingenetica obliterazione");
+        var x = OptionMonad.of("la palingenetica obliterazione");
 
-        OptionMonad<String> resultX = (OptionMonad<String>) x.bind(x::wrap);
+        var resultX = (OptionMonad<String>) x.bind(x::wrap);
 
         assertEquals("la palingenetica obliterazione", resultX.get());
 
@@ -36,9 +36,9 @@ public class OptionMonadTest {
     @Test
     public void testCompositions() {
 
-        OptionMonad<String> x = OptionMonad.of("la palingenetica obliterazione");
+        var x = OptionMonad.of("la palingenetica obliterazione");
 
-        OptionMonad<String> result = (OptionMonad<String>) x
+        var result = (OptionMonad<String>) x
                 .bind(toUpperCase)
                 .bind(toBase64);
 
@@ -50,9 +50,9 @@ public class OptionMonadTest {
     @Test
     public void testReverseCompositions() {
 
-        OptionMonad<String> x = OptionMonad.of("la palingenetica obliterazione");
+        var x = OptionMonad.of("la palingenetica obliterazione");
 
-        OptionMonad<String> result = (OptionMonad<String>) x
+        var result = (OptionMonad<String>) x
                 .bind(toBase64)
                 .bind(toUpperCase);
 
@@ -66,7 +66,7 @@ public class OptionMonadTest {
 
         OptionMonad<String> x = OptionMonad.empty();
 
-        OptionMonad<String> result = (OptionMonad<String>) x
+        var result = (OptionMonad<String>) x
                 .bind(toUpperCase)
                 .bind(toBase64);
 

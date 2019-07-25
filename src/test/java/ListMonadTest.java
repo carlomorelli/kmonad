@@ -13,23 +13,23 @@ public class ListMonadTest {
 
     private Function<Integer, Monad<Integer>> doubleIt = i -> {
         System.out.println("passing Function doubleIt...");
-        return new ListMonad<>(2 * i);
+        return ListMonad.of(2 * i);
     };
 
     private Function<Integer, Monad<Integer>> increment = i -> {
         System.out.println("passing Function increment...");
-        return new ListMonad<>(i + 1);
+        return ListMonad.of(i + 1);
     };
 
 
     private Function<String, Monad<String>> appendSmith = str -> {
         System.out.println("passing Function appendSmith...");
-        return new ListMonad<>(str.concat(" smith"));
+        return ListMonad.of(str.concat(" smith"));
     };
 
     private Function<String, Monad<String>> appendWilliamson = str -> {
         System.out.println("passing Function appendWilliamson...");
-        return new ListMonad<>(str.concat(" williamson"));
+        return ListMonad.of(str.concat(" williamson"));
     };
 
 
@@ -44,9 +44,9 @@ public class ListMonadTest {
     @Test
     public void testIdentityRule() {
 
-        ListMonad<Integer> x = ListMonad.of(1, 7, 12);
+        var x = ListMonad.of(1, 7, 12);
 
-        ListMonad<Integer> resultX = (ListMonad<Integer>) x.bind(x::wrap);
+        var resultX = (ListMonad<Integer>) x.bind(x::wrap);
 
         assertCollection(Arrays.asList(1, 7, 12), resultX.unwrap());
 
@@ -56,13 +56,13 @@ public class ListMonadTest {
     @Test
     public void testCompositions() {
 
-        ListMonad<Integer> x = ListMonad.of(1, 2, 3);
-        ListMonad<String> y = ListMonad.of("john", "hannah");
+        var x = ListMonad.of(1, 2, 3);
+        var y = ListMonad.of("john", "hannah");
 
-        ListMonad<Integer> resultX = (ListMonad<Integer>) x
+        var resultX = (ListMonad<Integer>) x
                 .bind(doubleIt)
                 .bind(increment);
-        ListMonad<String> resultY = (ListMonad<String>) y
+        var resultY = (ListMonad<String>) y
                 .bind(appendSmith)
                 .bind(appendWilliamson);
 
@@ -75,13 +75,13 @@ public class ListMonadTest {
     @Test
     public void testReverseCompositions() {
 
-        ListMonad<Integer> x = ListMonad.of(1, 2, 3);
-        ListMonad<String> y = ListMonad.of("john", "hannah");
+        var x = ListMonad.of(1, 2, 3);
+        var y = ListMonad.of("john", "hannah");
 
-        ListMonad<Integer> resultX = (ListMonad<Integer>) x
+        var resultX = (ListMonad<Integer>) x
                 .bind(increment)
                 .bind(doubleIt);
-        ListMonad<String> resultY = (ListMonad<String>) y
+        var resultY = (ListMonad<String>) y
                 .bind(appendWilliamson)
                 .bind(appendSmith);
 
@@ -96,7 +96,7 @@ public class ListMonadTest {
 
         ListMonad<Integer> x = ListMonad.empty();
 
-        ListMonad<Integer> resultX = (ListMonad<Integer>) x
+        var resultX = (ListMonad<Integer>) x
                 .bind(doubleIt)
                 .bind(increment);
 
