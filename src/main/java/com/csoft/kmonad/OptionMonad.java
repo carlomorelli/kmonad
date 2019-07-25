@@ -4,10 +4,7 @@ import java.util.function.Function;
 
 public class OptionMonad<T> implements Monad<T> {
 
-    private T t = null;
-
-    private OptionMonad() {
-    }
+    private T t;
 
     private OptionMonad(T t) {
         this.t = t;
@@ -17,13 +14,8 @@ public class OptionMonad<T> implements Monad<T> {
         return new OptionMonad<>(t);
     }
 
-    public static <T> OptionMonad<T> ofNullable(T t) {
-        return (t == null) ? OptionMonad.empty() : of(t);
-
-    }
-
     public static <T> OptionMonad<T> empty() {
-        return new OptionMonad<>();
+        return new OptionMonad<>(null);
     }
 
     public T get() {
@@ -40,7 +32,7 @@ public class OptionMonad<T> implements Monad<T> {
 
     @Override
     public Monad<T> wrap(T t) {
-        return new OptionMonad<>(t);
+        return OptionMonad.of(t);
     }
 
     @Override

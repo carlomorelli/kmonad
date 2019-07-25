@@ -1,0 +1,3 @@
+com\csoft\kmonad\Monad.class
+com\csoft\kmonad\ListMonad.class
+com\csoft\kmonad\OptionMonad.class

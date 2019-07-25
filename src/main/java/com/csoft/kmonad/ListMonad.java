@@ -25,7 +25,7 @@ public class ListMonad<T> implements Monad<T> {
 
     }
 
-    public static ListMonad<Integer> empty() {
+    public static <T> ListMonad<T> empty() {
         return new ListMonad<>();
     }
 
@@ -49,14 +49,14 @@ public class ListMonad<T> implements Monad<T> {
     @Override
     public <W> Monad<W> bind(Function<T, Monad<W>> application) {
         if (!this.isEmpty()) {
-            ListMonad<W> returnMonad = new ListMonad<>();
+            ListMonad<W> returnMonad = ListMonad.empty();
             for (T t : list) {
                 ListMonad<W> w = (ListMonad<W>) application.apply(t);
                 returnMonad.concatenate(w);
             }
             return returnMonad;
         }
-        return new ListMonad<>();
+        return ListMonad.empty();
 
     }
 
