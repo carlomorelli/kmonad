@@ -7,23 +7,22 @@ import java.util.function.Function;
 
 public class ListMonad<T> implements Monad<T> {
 
-    private List<T> list = new ArrayList<>();
+    private final List<T> list = new ArrayList<>();
 
     private ListMonad() {
     }
 
-    private ListMonad(T t) {
+    private ListMonad(final T t) {
         list.add(t);
     }
 
-    private ListMonad(List<T> ts) {
+    private ListMonad(final List<T> ts) {
         list.addAll(ts);
     }
 
     @SafeVarargs
-    public static <T> ListMonad<T> of(T... args) {
+    public static <T> ListMonad<T> of(final T... args) {
         return new ListMonad<>(Arrays.asList(args));
-
     }
 
     public static <T> ListMonad<T> empty() {
@@ -31,24 +30,24 @@ public class ListMonad<T> implements Monad<T> {
     }
 
     public boolean isEmpty() {
-        return list.size() == 0;
+        return list.isEmpty();
     }
 
     public List<T> unwrap() {
         return list;
     }
 
-    private void concatenate(ListMonad<T> t) {
+    private void concatenate(final ListMonad<T> t) {
         list.addAll(t.unwrap());
     }
 
     @Override
-    public Monad<T> wrap(T t) {
+    public Monad<T> wrap(final T t) {
         return new ListMonad<>(t);
     }
 
     @Override
-    public <W> Monad<W> bind(Function<T, Monad<W>> application) {
+    public <W> Monad<W> bind(final Function<T, Monad<W>> application) {
         if (!this.isEmpty()) {
             ListMonad<W> returnMonad = ListMonad.empty();
             for (T t : list) {

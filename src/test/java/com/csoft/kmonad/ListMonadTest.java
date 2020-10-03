@@ -1,5 +1,5 @@
-import com.csoft.kmonad.ListMonad;
-import com.csoft.kmonad.Monad;
+package com.csoft.kmonad;
+
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -11,23 +11,23 @@ import static org.junit.Assert.assertTrue;
 
 public class ListMonadTest {
 
-    private Function<Integer, Monad<Integer>> doubleIt = i -> {
+    private final Function<Integer, Monad<Integer>> doubleIt = i -> {
         System.out.println("passing Function doubleIt...");
         return ListMonad.of(2 * i);
     };
 
-    private Function<Integer, Monad<Integer>> increment = i -> {
+    private final Function<Integer, Monad<Integer>> increment = i -> {
         System.out.println("passing Function increment...");
         return ListMonad.of(i + 1);
     };
 
 
-    private Function<String, Monad<String>> appendSmith = str -> {
+    private final Function<String, Monad<String>> appendSmith = str -> {
         System.out.println("passing Function appendSmith...");
         return ListMonad.of(str.concat(" smith"));
     };
 
-    private Function<String, Monad<String>> appendWilliamson = str -> {
+    private final Function<String, Monad<String>> appendWilliamson = str -> {
         System.out.println("passing Function appendWilliamson...");
         return ListMonad.of(str.concat(" williamson"));
     };

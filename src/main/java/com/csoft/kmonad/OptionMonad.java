@@ -4,13 +4,13 @@ import java.util.function.Function;
 
 public class OptionMonad<T> implements Monad<T> {
 
-    private T t;
+    private final T t;
 
-    private OptionMonad(T t) {
+    private OptionMonad(final T t) {
         this.t = t;
     }
 
-    public static <T> OptionMonad<T> of(T t) {
+    public static <T> OptionMonad<T> of(final T t) {
         return new OptionMonad<>(t);
     }
 
@@ -29,14 +29,13 @@ public class OptionMonad<T> implements Monad<T> {
         return t != null;
     }
 
-
     @Override
-    public Monad<T> wrap(T t) {
+    public Monad<T> wrap(final T t) {
         return OptionMonad.of(t);
     }
 
     @Override
-    public <W> Monad<W> bind(Function<T, Monad<W>> application) {
+    public <W> Monad<W> bind(final Function<T, Monad<W>> application) {
         if (this.isPresent()) {
             T t = this.get();
             return application.apply(t);

@@ -1,5 +1,5 @@
-import com.csoft.kmonad.Monad;
-import com.csoft.kmonad.OptionMonad;
+package com.csoft.kmonad;
+
 import org.junit.Test;
 
 import java.util.Base64;
@@ -10,12 +10,12 @@ import static org.junit.Assert.assertFalse;
 
 public class OptionMonadTest {
 
-    private Function<String, Monad<String>> toUpperCase = str -> {
+    private final Function<String, Monad<String>> toUpperCase = str -> {
         System.out.println("passing Function toUpperCase...");
         return OptionMonad.of(str.toUpperCase());
     };
 
-    private Function<String, Monad<String>> toBase64 = str -> {
+    private final Function<String, Monad<String>> toBase64 = str -> {
         System.out.println("passing Function toBase64...");
         return OptionMonad.of(Base64.getEncoder().encodeToString(str.getBytes()));
     };
